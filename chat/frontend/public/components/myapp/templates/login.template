@@ -1,0 +1,39 @@
+<div id="login-form" ng-controller="LoginController">
+	<input type="text" name="username" id="username" placeholder="username" required>
+	<input type="password" name="password" id="password" required>
+
+	<input type="button" id="login" value="Login">
+	<br>
+
+	<h3>{{ non_field_errors }}</h3> 
+	<h3>{{ field_errors }}</h3> 
+	
+	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+        
+    <script>
+        function onSignIn(gUser) {
+            var id_token = gUser.getAuthResponse().id_token;
+            angular.element('#login-form').scope().glogin(id_token);
+        }
+
+        function onFailure(error) {
+            console.log(error);
+        }
+    </script>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+	<script>
+		$(document).on('click', '#login', function() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+
+			angular.element($('#login-form')).scope().login(username, password);
+		});
+
+        $(document).ready(function(){
+            $('#login').css('hidden', true);
+            $('#logout').css('hidden', true);
+        });
+	</script>
+</div>

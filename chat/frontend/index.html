@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="MyApplication">
+    <head>
+        <meta charset="utf-8">
+        <meta name="google-signin-client_id" content="306595485708-680cskv7oldd05rgfdhhldai1gcdmkm8.apps.googleusercontent.com">
+        <title></title>
+        <base href="/">
+    </head>
+    <body>
+        <!-- The dynamic templates will be served within this div -->
+        <a id="login" ng-if="!isAuthenticated" href="/#!/login">Log In</a>
+        <a id="logout" ng-if="isAuthenticated" href="/#!/logout">Log Out</a>
+
+        <ui-view></ui-view>
+    </body>
+
+    <!--  Angular Setup -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+    <!-- Application Setup -->
+    <script src="public/appRoutes.js"></script>
+    <script src="public/app.js"></script>
+
+    <!--  Controllers -->
+    <script src="public/components/myapp/controllers/myapp.control.js"></script>
+    <script src="public/components/myapp/controllers/login.control.js"></script>
+    <script src="public/components/myapp/controllers/logout.control.js"></script>
+    <script src="public/components/myapp/controllers/welcome.control.js"></script>
+
+    <!-- Services -->
+    <script src="public/components/myapp/services/login.service.js"></script>
+    <script src="public/components/myapp/services/message.service.js"></script>
+    <script src="public/components/myapp/services/change_pwd.service.js"></script>
+</html>

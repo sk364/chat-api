@@ -1,0 +1,26 @@
+<div id="message-list" ng-controller='MessageController'>
+	<div ng-repeat='message in messages'>
+		{{ message.send_by }} <br>
+		{{ message.send_to }} <br>
+		<b> {{ message.text }} <b> <br>
+		<img ng-if='message.if_img' src='{{ message.ufile }}' class='ufile-img'> <br>
+		<a ng-if='!message.if_img' 
+		href='{{ message.ufile }}' class='ufile-txt'>{{ message.ufile_name }}</a> <br>
+	</div>
+	<br>
+
+	<div id="message-create-form">
+		<input type="text" id="send-to" ng-model="send_to">
+		<br><br>
+		<textarea name="text" ng-model="text"></textarea>
+		<br><br>
+		<input type="file" ngf-select ng-model="ufiles"
+		ngf-max-size="1MB" ngf-multiple="true" name="ufile">
+
+		<br><br>
+
+		<button ng-click="create_message(ufiles)" >Send</button>
+	</div>
+
+	{{errors}}
+</div>
