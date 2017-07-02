@@ -9,11 +9,12 @@ A simple chat API
 All other requirements can be found in requirements.txt and bower.json
 
 # Installation
-Install the backend requirements  
 `> pip install -r requirements.txt`  
 
-Install the frontend requirements  
-`> npm install -g bower`  
+Install bower    
+`> npm install -g bower` 
+
+Change directory to 'chat/frontend'   
 `> bower install`
 
 # Usage
