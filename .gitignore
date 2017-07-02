@@ -104,7 +104,7 @@ ENV/
 chat/backend/*/*/migrations/*
 
 # uploads
-chat/backend/uploads/**/
+chat/backend/uploads/**/*
 
 # db
 *.sqlite3
