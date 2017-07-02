@@ -99,3 +99,15 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# migrations
+chat/backend/*/*/migrations/*
+
+# uploads
+chat/backend/uploads/**/
+
+# db
+*.sqlite3
+
+# bower components
+chat/frontend/bower_components/**/
