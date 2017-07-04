@@ -111,3 +111,9 @@ chat/backend/uploads/**/*
 
 # bower components
 chat/frontend/bower_components/**/
+
+# npm components
+chat_frontend/node_modules/**/
+
+# lock files
+package-lock.json
