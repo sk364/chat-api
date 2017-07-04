@@ -14,7 +14,8 @@ All other requirements can be found in requirements.txt and bower.json
 Install bower    
 `> npm install -g bower` 
 
-Change directory to 'chat/frontend'   
+Change directory to 'chat/frontend'  
+`> npm install`  
 `> bower install`
 
 # Usage
