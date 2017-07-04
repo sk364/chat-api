@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-4">
         <center> <h3>Login to Chat</h3> </center>
         <div id="login-form" class="text-left" ng-controller="LoginController">
           <label for="username" class="sr-only">Username</label>
