@@ -5,13 +5,13 @@
     "express": "^4.13.4",
     "angular": "=1.5.7",
     "angular-ui-router": "^0.4.2",
-    "angular-bootstrap": "^1.3.3",
     "angular-resource": "~1.4.8",
     "angular-local-storage": "^0.5.2",
     "angular-jwt": "^0.1.9",
     "ngstorage": "^0.3.11",
     "ng-file-upload": "^12.2.13",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7"
   },
   "resolutions": {
     "angular": "^1.0.8"

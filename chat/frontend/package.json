@@ -1,0 +1,7 @@
+{
+  "name": "chat",
+  "description": "Chat API frontend",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
