@@ -1,39 +1,71 @@
-<div id="login-form" ng-controller="LoginController">
-	<input type="text" name="username" id="username" placeholder="username" required>
-	<input type="password" name="password" id="password" required>
+<style>
+  #login-form {
+    margin-top: 10%;
+  }
+</style>
 
-	<input type="button" id="login" value="Login">
-	<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+        <center> <h3>Login to Chat</h3> </center>
+        <div id="login-form" class="text-left" ng-controller="LoginController">
+          <label for="username" class="sr-only">Username</label>
+          <div class="form-group">
+            <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
+          </div>
+          <label for="password" class="sr-only">Password</label>
+          <div class="form-group">
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+          </div>
 
-	<h3>{{ non_field_errors }}</h3> 
-	<h3>{{ field_errors }}</h3> 
-	
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-        
-    <script>
-        function onSignIn(gUser) {
-            var id_token = gUser.getAuthResponse().id_token;
-            angular.element('#login-form').scope().glogin(id_token);
-        }
+          <h5>{{ non_field_errors }}</h5> 
+          <h5>{{ field_errors }}</h5> 
 
-        function onFailure(error) {
-            console.log(error);
-        }
-    </script>
-    
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+          <center>
+            <input type="button" id="login" value="Login" class="btn btn-primary">
+            <h5> Or, </h5>
+            <div id="google-signin" data-onsuccess="onSignIn"></div>
+          </center>
 
-	<script>
-		$(document).on('click', '#login', function() {
-			var username = $('#username').val();
-			var password = $('#password').val();
-
-			angular.element($('#login-form')).scope().login(username, password);
-		});
-
-        $(document).ready(function(){
-            $('#login').css('hidden', true);
-            $('#logout').css('hidden', true);
-        });
-	</script>
+          <br>
+          <center><h5><strong>Note: For first time users, sign in with Google.</strong></h5></center>
+        </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  function onSignIn(gUser) {
+      var id_token = gUser.getAuthResponse().id_token;
+      angular.element('#login-form').scope().glogin(id_token);
+  }
+  function onFailure(error) {
+      console.log(error);
+  }
+
+  function renderButton() {
+    gapi.signin2.render('google-signin', {
+      'scope': 'profile email',
+      'width': 210,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'light',
+      'onsuccess': onSignIn,
+      'onfailure': onFailure
+    });
+  }
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script>
+  $(document).on('click', '#login', function() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+
+    angular.element($('#login-form')).scope().login(username, password);
+  });
+
+  $(document).ready(function(){
+    $('#login').attr('hidden', true);
+    $('#logout').attr('hidden', true);
+  });
+</script>
