@@ -113,7 +113,7 @@ chat/backend/uploads/**/*
 chat/frontend/bower_components/**/
 
 # npm components
-chat_frontend/node_modules/**/
+chat/frontend/node_modules/**/
 
 # lock files
 package-lock.json
