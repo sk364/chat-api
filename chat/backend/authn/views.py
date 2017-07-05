@@ -7,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from oauth2client import client, crypt
 
+from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -99,11 +100,11 @@ class LoginView(APIView):
             except crypt.AppIdentityError, e:
                 return Response({
                     "errors" : str(e)
-                })
+                }, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({
                 'errors' : 'id_token missing'
-            })
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class ChangePasswordView(APIView):
     """
