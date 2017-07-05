@@ -1,19 +1,19 @@
 'use strict';
 
-var myapp = angular.module("myapp", ['ngStorage', 'angular-jwt', 'ngFileUpload']);
-
-angular
-    .module('MyApplication', [
-        'appRoutes',
-        'myapp',
-		'ngResource',
-    ])
-    .run(function($rootScope, authManager, $window) {
-    	authManager.checkAuthOnRefresh();
-    	$rootScope.$on('tokenHasExpired', function() {
-		 	$window.location.href = '/#!/logout';
-		});
-  	});
+var myapp = angular.module('myapp',
+[
+    'appRoutes',
+    'ngStorage',
+    'angular-jwt',
+    'ngFileUpload',
+    'ngResource',
+])
+.run(function($rootScope, authManager, $window) {
+	authManager.checkAuthOnRefresh();
+	$rootScope.$on('tokenHasExpired', function() {
+        $window.location.href = '/#!/logout';
+	});
+});
 
 myapp
 	.config(['$qProvider', '$httpProvider', '$localStorageProvider',
