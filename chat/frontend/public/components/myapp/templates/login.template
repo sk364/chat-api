@@ -2,32 +2,39 @@
   #login-form {
     margin-top: 10%;
   }
+  .error {
+    color: red;
+  }
 </style>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-        <center> <h3>Login to Chat</h3> </center>
+    <div class="col-md-4 col-md-offset-4">
+        <div class="text-center">
+          <h3>Login to Chat</h3>
+        </div>
+        <hr>
         <div id="login-form" class="text-left" ng-controller="LoginController">
           <label for="username" class="sr-only">Username</label>
           <div class="form-group">
-            <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
+            <input type="text" name="username" id="username" placeholder="Username" class="form-control" ng-model="username" required="true">
           </div>
           <label for="password" class="sr-only">Password</label>
           <div class="form-group">
-            <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control" ng-model="password" required="true">
           </div>
 
-          <h5>{{ non_field_errors }}</h5> 
-          <h5>{{ field_errors }}</h5> 
+          <div class="error">
+            <h5>{{ errors }}</h5>
+          </div>
 
           <center>
-            <input type="button" id="login" value="Login" class="btn btn-primary">
+            <input type="button" id="login" value="Login" class="btn btn-primary" ng-click="login()">
             <h5> Or, </h5>
             <div id="google-signin" data-onsuccess="onSignIn"></div>
           </center>
 
-          <br>
+          <hr>
           <center><h5><strong>Note: For first time users, sign in with Google.</strong></h5></center>
         </div>
     </div>
@@ -36,8 +43,8 @@
 
 <script>
   function onSignIn(gUser) {
-      var id_token = gUser.getAuthResponse().id_token;
-      angular.element('#login-form').scope().glogin(id_token);
+    var id_token = gUser.getAuthResponse().id_token;
+    angular.element('#login-form').scope().glogin(id_token);
   }
   function onFailure(error) {
       console.log(error);
@@ -46,7 +53,7 @@
   function renderButton() {
     gapi.signin2.render('google-signin', {
       'scope': 'profile email',
-      'width': 210,
+      'width': 240,
       'height': 50,
       'longtitle': true,
       'theme': 'light',
@@ -57,15 +64,11 @@
 </script>
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script>
-  $(document).on('click', '#login', function() {
-    var username = $('#username').val();
-    var password = $('#password').val();
-
-    angular.element($('#login-form')).scope().login(username, password);
-  });
-
   $(document).ready(function(){
     $('#login').attr('hidden', true);
     $('#logout').attr('hidden', true);
   });
+  window.onbeforeunload = function(e){
+    gapi.auth2.getAuthInstance().signOut();
+  };
 </script>
