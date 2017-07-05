@@ -24,3 +24,9 @@
 
 	{{errors}}
 </div>
+
+<script>
+	$(document).ready(function() {
+		angular.element('#message-list').scope().init();
+	});
+</script>
