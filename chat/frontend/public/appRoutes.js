@@ -9,21 +9,21 @@ angular
     $stateProvider
         .state('welcome', {
             url: '/welcome',
-            templateUrl: 'public/components/myapp/templates/welcome.template',
+            templateUrl: 'public/components/myapp/templates/welcome.html',
             controller: 'WelcomeController'
         });
 
     $stateProvider
         .state('settings', {
             url: '/settings',
-            templateUrl: 'public/components/myapp/templates/settings.template',
+            templateUrl: 'public/components/myapp/templates/settings.html',
             controller: 'SettingsController'
         });
 
     $stateProvider
         .state('login', {
             url: '/login',
-            templateUrl: 'public/components/myapp/templates/login.template',
+            templateUrl: 'public/components/myapp/templates/login.html',
             controller: 'LoginController'
         });
 
@@ -36,14 +36,14 @@ angular
     $stateProvider
     	.state('message-list', {
 	        url: '/',
-	        templateUrl: 'public/components/myapp/templates/message-list.template',
+	        templateUrl: 'public/components/myapp/templates/message-list.html',
 	        controller: 'MessageController'
 	    });
 
     $stateProvider
         .state('message-user', {
             url: '/{username}',
-            templateUrl: 'public/components/myapp/templates/message-user.template',
+            templateUrl: 'public/components/myapp/templates/message-user.html',
             controller: 'MessageController'
         });
 }]);

@@ -28,8 +28,7 @@ myapp
 			    whiteListedDomains: ['localhost'],
 			    tokenGetter: ['options', function(options) {
 	        		// Skip authentication for any requests ending in .html
-	        		if (options && (options.url.substr(options.url.length - 5) == '.html' || 
-	        			options.url.substr(options.url.length - 9) == '.template')) {
+	        		if (options && (options.url.substr(options.url.length - 5) == '.html') {
 	          			return null;
 	        		}
 	        		
