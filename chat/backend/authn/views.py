@@ -117,7 +117,7 @@ class ChangePasswordView(APIView):
 
     def put(self, request, format=None):
         password = request.data.get('password', None)
-        confirm_password = request.data.get('cpassword', None)
+        confirm_password = request.data.get('confirm_password', None)
 
         if not password or not confirm_password:
             return Response({
