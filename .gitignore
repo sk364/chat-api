@@ -101,7 +101,7 @@ ENV/
 .mypy_cache/
 
 # migrations
-chat/backend/*/*/migrations/*
+chat/backend/**/**/migrations/*
 
 # uploads
 chat/backend/uploads/**/*
