@@ -1,3 +1,26 @@
+<style type="text/css">
+  #text {
+    margin-right: 10px;
+    width: 90%;
+  }
+  #send {
+    float: right;
+  }
+  #message-send-bar {
+    display: inline-flex;
+    overflow: hidden;
+    position: fixed;
+    bottom: 1%;
+    width: 90%;
+  }
+  #messages {
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    margin-bottom: 20%;
+    height: 80vh;
+  }
+</style>
+
 <div id="message-list" ng-controller='MessageController'>
 	<div ng-repeat='message in messages'>
 		{{ message.send_by }} <br>
@@ -9,20 +32,32 @@
 	</div>
 	<br>
 
-	<div id="message-create-form">
-		<input type="text" id="send-to" ng-model="send_to">
-		<br><br>
-		<textarea name="text" ng-model="text"></textarea>
-		<br><br>
-		<input type="file" ngf-select ng-model="ufiles"
-		ngf-max-size="1MB" ngf-multiple="true" name="ufile">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="message-create-form">
+          <div class="form-group">
+            <input type="text" id="send-to" class="form-control" placeholder="Search for users..." ng-model="send_to">
+          </div>
 
-		<br><br>
+          <div id="messages">
 
-		<button ng-click="create_message(ufiles)" >Send</button>
-	</div>
+          </div>
 
-	{{errors}}
+          <div class="form-group">
+            <div id="message-send-bar">
+              <textarea name="text" id="text" rows="1" cols="60" class="form-control" placeholder="Enter message here..." ng-model="text"></textarea>
+              <!--<input type="file" ngf-select ng-model="ufiles" ngf-max-size="1MB" ngf-multiple="true" name="ufile">-->
+
+              <button id="send" class="btn btn-primary" ng-click="create_message(ufiles)" >Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{errors}}
 </div>
 
 <script>
