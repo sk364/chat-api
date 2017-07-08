@@ -24,11 +24,7 @@ class MessageViewSet(ModelViewSet):
         username = self.kwargs.get('username', None)
 
         if username:
-            user = User.objects.filter(username=username)
-            if user:
-                user = user[0]
-            else:
-                user = None
+            user = User.objects.filter(username=username).first()
             
             return Message.objects.filter(
                 (Q(send_by=auth_user) | Q(send_to=auth_user)) &
@@ -36,6 +32,8 @@ class MessageViewSet(ModelViewSet):
             ).order_by('created_at')
 
         else:
-            return Message.objects.filter(
-                Q(send_by=auth_user) | Q(send_to=auth_user)
-            ).order_by('created_at')
+            return Message.objects.filter(Q(send_by=auth_user) | Q(send_to=auth_user)).order_by('created_at')
+
+
+    def get_serializer_context(self):
+        return {'request': self.request}
