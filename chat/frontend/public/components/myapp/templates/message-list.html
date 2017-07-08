@@ -1,6 +1,6 @@
 <style type="text/css">
   #text {
-    margin-right: 10px;
+    margin-right: 5px;
     width: 90%;
   }
   #send {
@@ -16,38 +16,72 @@
   #messages {
     overflow-y: scroll;
     overflow-wrap: break-word;
-    margin-bottom: 20%;
+    margin-bottom: 2%;
     height: 80vh;
+  }
+  .message .sent {
+    margin-left: 53%;
+  }
+  .message .received {
+    margin-right: 50%;
+    margin-left: 3%;
+  }
+  .message .message-img {
+    width: 90%;
+    margin-bottom: 5%;
+  }
+  .message .created_at {
+    color: gray;
+    font-size: 75%;
+  }
+  .attach-file {
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+  .attach-file > input {
+    display: none;
+  }
+  .attach-file > label > img {
+    width: 20px;
+    height: 20px;
   }
 </style>
 
 <div id="message-list" ng-controller='MessageController'>
-	<div ng-repeat='message in messages'>
-		{{ message.send_by }} <br>
-		{{ message.send_to }} <br>
-		<b> {{ message.text }} <b> <br>
-		<img ng-if='message.if_img' src='{{ message.ufile }}' class='ufile-img'> <br>
-		<a ng-if='!message.if_img' 
-		href='{{ message.ufile }}' class='ufile-txt'>{{ message.ufile_name }}</a> <br>
-	</div>
-	<br>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        {{errors}}
         <div id="message-create-form">
           <div class="form-group">
             <input type="text" id="send-to" class="form-control" placeholder="Search for users..." ng-model="send_to">
           </div>
 
           <div id="messages">
-
+            <div ng-repeat="message in messages" class="message">
+              <div ng-class="message.is_received ? 'received' : 'sent'">
+                <div class="created_at">
+                  {{ message.created_at }}
+                </div>
+                <div class="message-text" ng-if="!message.ufile"> {{ message.text }}</div>
+                <div ng-if="message.ufile">
+                  <a href="{{ message.ufile }}" target="_blank"><img ng-if='message.is_img' src='{{ message.ufile }}' class='message-img'></a>
+                  <a ng-if='!message.is_img' href='{{ message.ufile }}' class='message-name' target="_blank">{{ message.ufile_name }}</a>
+                </div>
+              </div>
+              <br><br>
+            </div>
           </div>
 
           <div class="form-group">
             <div id="message-send-bar">
               <textarea name="text" id="text" rows="1" cols="60" class="form-control" placeholder="Enter message here..." ng-model="text"></textarea>
-              <!--<input type="file" ngf-select ng-model="ufiles" ngf-max-size="1MB" ngf-multiple="true" name="ufile">-->
+              <div class="attach-file">
+                <label for="attach">
+                  <img src="public/components/img/attach-file-icon.png">
+                </label>
+                <input type="file" ngf-select ng-model="ufiles" ngf-max-size="1MB" ngf-multiple="true" name="ufile" id="attach">
+              </div>
 
               <button id="send" class="btn btn-primary" ng-click="create_message(ufiles)" >Send</button>
             </div>
@@ -56,8 +90,6 @@
       </div>
     </div>
   </div>
-
-  {{errors}}
 </div>
 
 <script>

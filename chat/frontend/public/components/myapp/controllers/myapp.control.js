@@ -11,20 +11,6 @@ myapp
       $scope.init = function() {
         Message.query({username:$scope.send_to}).$promise.then(
           function(messages) {
-            for (var i=0; i < messages.length; i++) {
-              var fname = messages[i].ufile_name;
-              var ext = fname.substring(fname.lastIndexOf('.')+1, fname.length) || fname;
-
-              var if_img = false;
-              var img_types = ['png', 'jpg', 'jpeg', 'gif'];
-
-              if (img_types.indexOf(ext.toLowerCase()) > -1){
-                if_img = true;
-              }
-
-              messages[i].if_img = if_img;
-            }
-
             $scope.messages = messages;
           }
         );
@@ -56,7 +42,6 @@ myapp
             $scope.errors = error;
           });
         }
-        // bugs (uploads last file multiple times)
         else if (ufiles.length) {
           for (var i=0; i < ufiles.length; i++) {
             Upload.upload({
