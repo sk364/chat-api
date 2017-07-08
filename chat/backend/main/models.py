@@ -1,15 +1,17 @@
 from __future__ import unicode_literals
 
+import uuid
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
 
-import uuid
-import os
 
 def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
     return os.path.join('', filename)
+
 
 class Message(models.Model):
 	send_by = models.ForeignKey(User, related_name='send_by', on_delete=models.CASCADE)
