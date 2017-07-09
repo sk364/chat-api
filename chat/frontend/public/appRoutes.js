@@ -7,13 +7,6 @@ angular
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
-        .state('welcome', {
-            url: '/welcome',
-            templateUrl: 'public/components/myapp/templates/welcome.html',
-            controller: 'WelcomeController'
-        });
-
-    $stateProvider
         .state('settings', {
             url: '/settings',
             templateUrl: 'public/components/myapp/templates/settings.html',

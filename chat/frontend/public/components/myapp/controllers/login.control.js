@@ -8,15 +8,15 @@ myapp.controller('LoginController',
         $unlistedDomainErrMsg = 'Only IIIT mail id (@iiitdmj.ac.in) is allowed.';
 
         $scope.login = function() {
-          if (!($scope.username && $scope.password)){
+          if (!$scope.username || !$scope.password){
             $scope.errors = $blankFieldErrMsg;
             return;
           }
 
-          Login.query({username: username, password: password}).$promise.then(function(data) {
+          Login.query({username: $scope.username, password: $scope.password}).$promise.then(function(data) {
             if(data.token) {
               $localStorage.token = data.token;
-              $localStorage.username = username;
+              $localStorage.username = $scope.username;
               $state.transitionTo('message-list', $stateParams, {
                 reload: true, inherit: false, notify: true
               });
@@ -36,17 +36,9 @@ myapp.controller('LoginController',
             if (data.token) {
               $localStorage.token = data.token;
               $localStorage.username = data.username;
-
-              if (data.first_time) {
-                $state.transitionTo('welcome', $stateParams, {
-                  reload: true, inherit: false, notify: true
-                });
-              }
-              else {
-                $state.transitionTo('message-list', $stateParams, {
-                  reload: true, inherit: false, notify: true
-                });
-              }
+              $state.transitionTo('message-list', $stateParams, {
+                reload: true, inherit: false, notify: true
+              });
             }
           }, function(error) {
             var err_resp = error.data.errors;

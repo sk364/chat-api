@@ -37,11 +37,9 @@ class LoginView(APIView):
                      and last name separated by a space
         """
 
-        # check if it is the first time for the user
         try:
-            _user = get_object_or_404(User, email=email)
-
-            return (_user, False)
+            user = get_object_or_404(User, email=email)
+            return user
         except Http404:
             pass
 
@@ -55,8 +53,7 @@ class LoginView(APIView):
             username=email, email=email, first_name=first_name,
             last_name=last_name
         )
-
-        return (user, True)
+        return user
 
     def post(self, request, format=None):
         """
@@ -83,7 +80,7 @@ class LoginView(APIView):
                     email = idinfo['email']
                     name = idinfo['name']
 
-                    user, first_time = self.create_user(email, name)
+                    user = self.create_user(email, name)
 
                     # create jwt
                     payload = jwt_payload_handler(user)
@@ -91,8 +88,7 @@ class LoginView(APIView):
 
                     return Response({
                         'token' : token,
-                        'username' : user.username,
-                        'first_time' : first_time
+                        'username' : user.username
                     })
 
                 else:
