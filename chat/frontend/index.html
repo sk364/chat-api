@@ -10,11 +10,52 @@
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <style type="text/css">
+            .navbar-collapse.collapse {
+                display: block!important;
+            }
+
+            .navbar-nav>li, .navbar-nav {
+                float: left !important;
+            }
+
+
+            .navbar-nav.navbar-right:last-child {
+                margin-right: -15px !important;
+            }
+
+            .navbar-right {
+                float: right!important;
+            }
+        </style>
     </head>
     <body>
-        <!-- The dynamic templates will be served within this div -->
-        <a id="login" ng-if="!isAuthenticated" href="/#!/login">Log In</a>
-        <a id="logout" ng-if="isAuthenticated" href="/#!/logout">Log Out</a>
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+             <div class="">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a class="navbar-brand" href="/#!/">Brand</a></li>
+                </ul>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a >Change Username</a></li>
+                    <li><a >Change Password</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/#!/logout">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
 
         <ui-view></ui-view>
     </body>
@@ -35,7 +76,6 @@
     <script src="public/components/myapp/controllers/myapp.control.js"></script>
     <script src="public/components/myapp/controllers/login.control.js"></script>
     <script src="public/components/myapp/controllers/logout.control.js"></script>
-    <script src="public/components/myapp/controllers/welcome.control.js"></script>
 
     <!-- Services -->
     <script src="public/components/myapp/services/login.service.js"></script>

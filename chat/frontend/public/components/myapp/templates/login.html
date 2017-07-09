@@ -65,8 +65,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script>
   $(document).ready(function(){
-    $('#login').attr('hidden', true);
-    $('#logout').attr('hidden', true);
+    $('nav').attr('hidden', true);
   });
   window.onbeforeunload = function(e){
     gapi.auth2.getAuthInstance().signOut();
