@@ -54,7 +54,10 @@
         {{errors}}
         <div id="message-create-form">
           <div class="form-group">
-            <input type="text" id="send-to" class="form-control" placeholder="Search for users..." ng-model="send_to">
+            <input type="text" class="form-control" placeholder="Search for users..." ng-model="send_to" uib-typeahead="user for user in users | filter:$viewValue" typeahead-no-results="noResults" typeahead-on-select="onSelect($item, $model, $label)">
+            <div ng-show="noResults">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
           </div>
 
           <div id="messages">

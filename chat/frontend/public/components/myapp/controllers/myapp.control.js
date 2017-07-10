@@ -7,6 +7,7 @@ myapp
 
       $scope.send_to = $stateParams.username;
       $scope.text = '';
+      $scope.users = ['a@iiitdmj.ac.in'];
 
       $scope.init = function() {
         Message.query({username:$scope.send_to}).$promise.then(
@@ -14,6 +15,10 @@ myapp
             $scope.messages = messages;
           }
         );
+      }
+
+      $scope.onSelect = function($item, $model, $value) {
+        window.location.href = '/#!/' + $item;
       }
 
       $scope.create_message = function(ufiles) {

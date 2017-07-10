@@ -7,6 +7,7 @@ var myapp = angular.module('myapp',
   'angular-jwt',
   'ngFileUpload',
   'ngResource',
+  'ui.bootstrap',
 ])
 .run(function($rootScope, authManager, $window) {
   authManager.checkAuthOnRefresh();
