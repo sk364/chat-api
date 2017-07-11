@@ -90,3 +90,9 @@ class MessageSerializer(serializers.ModelSerializer):
 		model = Message
 		fields = ('send_by', 'send_to', 'text', 'ufile', 'created_at', 'ufile_name', 'is_img', 'is_received', )
 		read_only_fields = ('created_at', 'ufile_name', )
+
+
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('username', )

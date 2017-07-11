@@ -1,12 +1,14 @@
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from .models import Message
-from .serializers import MessageSerializer
+from .serializers import MessageSerializer, UserSerializer
 
 
 class MessageViewSet(ModelViewSet):
@@ -37,3 +39,14 @@ class MessageViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+
+class UserAPIView(APIView):
+    """An API View to get all signed up users"""
+
+    def get(self, request):
+        users = User.objects.all()
+        user_serializer = UserSerializer(users, many=True)
+        response_data = {'users': user_serializer.data}
+
+        return Response(response_data)
