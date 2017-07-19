@@ -28,15 +28,8 @@ angular
 
     $stateProvider
     	.state('message-list', {
-	        url: '/',
+	        url: '/{username}',
 	        templateUrl: 'public/components/myapp/templates/message-list.html',
 	        controller: 'MessageController'
 	    });
-
-    $stateProvider
-        .state('message-user', {
-            url: '/{username}',
-            templateUrl: 'public/components/myapp/templates/message-user.html',
-            controller: 'MessageController'
-        });
 }]);

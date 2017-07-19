@@ -54,13 +54,18 @@
         {{errors}}
         <div id="message-create-form">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search for users..." ng-model="send_to" uib-typeahead="user for user in users | filter:$viewValue" typeahead-no-results="noResults" typeahead-on-select="onSelect($item, $model, $label)">
+            <input type="text" class="form-control" placeholder="Search for users..." ng-if='!send_to' ng-model="send_to" uib-typeahead="user.username for user in users | filter:$viewValue" typeahead-no-results="noResults" typeahead-on-select="onSelect($item, $model, $label)">
             <div ng-show="noResults">
               <i class="glyphicon glyphicon-remove"></i> No Results Found
             </div>
+
+            <div ng-if='send_to'>
+              <strong> {{ send_to }} </strong>
+              <hr>
+            </div>
           </div>
 
-          <div id="messages">
+          <div id="messages" ng-if='send_to'>
             <div ng-repeat="message in messages" class="message">
               <div ng-class="message.is_received ? 'received' : 'sent'">
                 <div class="created_at">
