@@ -1,10 +1,12 @@
 from django.conf.urls import url
-from rest_framework import routers
 
-from .views import MessageViewSet, UserAPIView
+from .views import MessageAPIView, UserAPIView
 
-router = routers.SimpleRouter()
-router.register(r'^messages', MessageViewSet)
-get_users = UserAPIView.as_view()
+messages = MessageAPIView.as_view()
+users = UserAPIView.as_view()
 
-urlpatterns = [url(r'^users/$', get_users), ] + router.urls
+urlpatterns = [
+    url(r'^users/$', users),
+    url(r'^messages/$', messages),
+    url(r'^messages/(?P<username>.*)/$', messages)
+]

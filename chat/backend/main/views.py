@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
@@ -11,7 +11,7 @@ from .models import Message
 from .serializers import MessageSerializer, UserSerializer
 
 
-class MessageViewSet(ModelViewSet):
+class MessageAPIView(ListCreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = (IsAuthenticated, )
     authentication_classes = (JSONWebTokenAuthentication, )
@@ -47,6 +47,6 @@ class UserAPIView(APIView):
     def get(self, request):
         users = User.objects.all()
         user_serializer = UserSerializer(users, many=True)
-        response_data = {'users': user_serializer.data}
+        response_data = user_serializer.data
 
         return Response(response_data)
