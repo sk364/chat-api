@@ -1,51 +1,4 @@
-<style type="text/css">
-  #text {
-    margin-right: 5px;
-    width: 90%;
-  }
-  #send {
-    float: right;
-  }
-  #message-send-bar {
-    display: inline-flex;
-    overflow: hidden;
-    position: fixed;
-    bottom: 1%;
-    width: 90%;
-  }
-  #messages {
-    overflow-y: scroll;
-    overflow-wrap: break-word;
-    margin-bottom: 2%;
-    height: 71vh;
-  }
-  .message .sent {
-    margin-left: 53%;
-  }
-  .message .received {
-    margin-right: 50%;
-    margin-left: 3%;
-  }
-  .message .message-img {
-    width: 90%;
-    margin-bottom: 5%;
-  }
-  .message .created_at {
-    color: gray;
-    font-size: 75%;
-  }
-  .attach-file {
-    margin-right: 5px;
-    margin-top: 3px;
-  }
-  .attach-file > input {
-    display: none;
-  }
-  .attach-file > label > img {
-    width: 20px;
-    height: 20px;
-  }
-</style>
+<link rel="stylesheet" href="public/components/css/message.css">
 
 <div id="message-list" ng-controller='MessageController'>
   <div class="container">
@@ -73,8 +26,8 @@
                 </div>
                 <div class="message-text" ng-if="!message.ufile"> {{ message.text }}</div>
                 <div ng-if="message.ufile">
-                  <a href="{{ message.ufile }}" target="_blank"><img ng-if='message.is_img' src='{{ message.ufile }}' class='message-img'></a>
-                  <a ng-if='!message.is_img' href='{{ message.ufile }}' class='message-name' target="_blank">{{ message.ufile_name }}</a>
+                  <a ng-href="{{ message.ufile }}" target="_blank"><img ng-if='message.is_img' ng-src='{{ message.ufile }}' class='message-img'></a>
+                  <a ng-if='!message.is_img' ng-href='{{ message.ufile }}' class='message-name' target="_blank">{{ message.ufile_name }}</a>
                 </div>
               </div>
               <br><br>

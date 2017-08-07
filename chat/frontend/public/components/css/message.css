@@ -1,0 +1,46 @@
+#text {
+  margin-right: 5px;
+  width: 90%;
+}
+#send {
+  float: right;
+}
+#message-send-bar {
+  display: inline-flex;
+  overflow: hidden;
+  position: fixed;
+  bottom: 1%;
+  width: 90%;
+}
+#messages {
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  margin-bottom: 2%;
+  height: 71vh;
+}
+.message .sent {
+  margin-left: 53%;
+}
+.message .received {
+  margin-right: 50%;
+  margin-left: 3%;
+}
+.message .message-img {
+  width: 90%;
+  margin-bottom: 5%;
+}
+.message .created_at {
+  color: gray;
+  font-size: 75%;
+}
+.attach-file {
+  margin-right: 5px;
+  margin-top: 3px;
+}
+.attach-file > input {
+  display: none;
+}
+.attach-file > label > img {
+  width: 20px;
+  height: 20px;
+}
