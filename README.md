@@ -11,12 +11,8 @@ All other requirements can be found in requirements.txt and bower.json
 # Installation
 `> pip install -r requirements.txt`  
 
-Install bower    
-`> npm install -g bower` 
-
 Change directory to 'chat/frontend'  
 `> npm install`  
-`> bower install`
 
 # Usage
 `> python manage.py makemigrations`  
@@ -25,4 +21,4 @@ Change directory to 'chat/frontend'
 
 `> node server.js`
 
-You can go to the url 'http://localhost:8081' in your browser.
+You can go to the url 'http://localhost:8081/#/login' in your browser.
