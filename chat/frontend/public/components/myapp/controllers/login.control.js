@@ -1,6 +1,6 @@
 myapp.controller('LoginController',
-    ["$scope", "$state", "$localStorage", "$window", "$stateParams", "Login", "GLogin",
-      function($scope, $state, $localStorage, $window, $stateParams, Login, GLogin) {
+    ["$scope", "$state", "$localStorage", "$window", "$stateParams", "Login", "GLogin", "socket",
+      function($scope, $state, $localStorage, $window, $stateParams, Login, GLogin, socket) {
         $scope.username = '';
         $scope.password = '';
         $scope.errors = '';
@@ -17,6 +17,7 @@ myapp.controller('LoginController',
             if(data.token) {
               $localStorage.token = data.token;
               $localStorage.username = $scope.username;
+
               $state.transitionTo('message-list', $stateParams, {
                 reload: true, inherit: false, notify: true
               });
@@ -36,6 +37,7 @@ myapp.controller('LoginController',
             if (data.token) {
               $localStorage.token = data.token;
               $localStorage.username = data.username;
+
               $state.transitionTo('message-list', $stateParams, {
                 reload: true, inherit: false, notify: true
               });

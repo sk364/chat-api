@@ -12,7 +12,7 @@ var myapp = angular.module('myapp',
 .run(function($rootScope, authManager, $window) {
   authManager.checkAuthOnRefresh();
   $rootScope.$on('tokenHasExpired', function() {
-    $window.location.href = '/#!/logout';
+    $window.location.href = '/#/logout';
   });
 });
 
@@ -21,7 +21,6 @@ myapp
     function ($qProvider, $httpProvider, $localStorageProvider,
       jwtInterceptorProvider, jwtOptionsProvider) {
         $qProvider.errorOnUnhandledRejections(false);
-
         jwtOptionsProvider.config({
           authPrefix: 'JWT ',
           whiteListedDomains: ['localhost'],

@@ -1,19 +1,23 @@
 myapp
-  .controller('MessageController', ["$scope", "$window", "$stateParams", "$localStorage", "Message", "Upload", "User",
-    function($scope, $window, $stateParams, $localStorage, Message, Upload, User) {
+  .controller('MessageController', ["$scope", "$window", "$stateParams", "$localStorage", "Message", "Upload", "User", "socket",
+    function($scope, $window, $stateParams, $localStorage, Message, Upload, User, socket) {
       if (!('token' in $localStorage)) {
-        $window.location.href = '/#!/login';
+        $window.location.href = '/#/login';
       }
 
       $scope.send_to = $stateParams.username;
       $scope.text = '';
       $scope.users = [];
+      $scope.active_users = [];
 
       $scope.init = function() {
+        socket.init($localStorage.username);
+
         var data = {};
         if ($scope.send_to) {
           data = { username: $scope.send_to }
         }
+
         Message.query(data).$promise.then(function(messages) {
           $scope.messages = messages;
         });
@@ -24,7 +28,7 @@ myapp
       }
 
       $scope.onSelect = function($item, $model, $value) {
-        window.location.href = '/#!/' + $value;
+        window.location.href = '/#/' + $value;
       }
 
       $scope.create_message = function(ufiles) {

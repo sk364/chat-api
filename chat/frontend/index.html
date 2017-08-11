@@ -7,29 +7,11 @@
         <title></title>
         <base href="/">
 
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <style type="text/css">
-            .navbar-collapse.collapse {
-                display: block!important;
-            }
-
-            .navbar-nav>li, .navbar-nav {
-                float: left !important;
-            }
-
-
-            .navbar-nav.navbar-right:last-child {
-                margin-right: -15px !important;
-            }
-
-            .navbar-right {
-                float: right!important;
-            }
-        </style>
+        <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet">
+        <link href="./index.css" rel="stylesheet">
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -62,13 +44,14 @@
     </body>
 
     <!--  Angular Setup -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-    <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.js"></script>
-    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="node_modules/angular-jwt/dist/angular-jwt.js"></script>
+    <script src="node_modules/ngstorage/ngStorage.js"></script>
+    <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <!-- Application Setup -->
     <script src="public/appRoutes.js"></script>
@@ -84,4 +67,5 @@
     <script src="public/components/myapp/services/message.service.js"></script>
     <script src="public/components/myapp/services/change_pwd.service.js"></script>
     <script src="public/components/myapp/services/user.service.js"></script>
+    <script src="public/components/myapp/services/socket.service.js"></script>
 </html>
