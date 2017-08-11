@@ -117,3 +117,6 @@ chat/frontend/node_modules/**/
 
 # lock files
 package-lock.json
+
+# user data
+usersData.json
