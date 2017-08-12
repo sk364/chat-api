@@ -26,11 +26,11 @@ class MessageAPIView(ListCreateAPIView):
         username = self.kwargs.get('username', None)
 
         if username:
-            user = User.objects.filter(username=username).first()
+            user = User.objects.get(username=username)
             
             return Message.objects.filter(
-                (Q(send_by=auth_user) | Q(send_to=auth_user)) &
-                (Q(send_by=user) | Q(send_to=user))
+                (Q(send_by=auth_user) & Q(send_to=user)) |
+                (Q(send_by=user) & Q(send_to=auth_user))
             ).order_by('created_at')
 
         else:
