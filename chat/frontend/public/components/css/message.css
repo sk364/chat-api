@@ -36,6 +36,7 @@
 .attach-file {
   margin-right: 5px;
   margin-top: 3px;
+  cursor: pointer;
 }
 .attach-file > input {
   display: none;
@@ -43,4 +44,5 @@
 .attach-file > label > img {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
