@@ -46,11 +46,9 @@ module.exports = function (socket) {
           send_to = data.send_to,
           userSocketIds = usersData[send_to];
 
+    data.is_received = true;
     userSocketIds.map(function(userSocketId, idx) {
-      socket.to(userSocketId).emit({
-        message: data.message,
-        from: data.from
-      })
+      socket.to(userSocketId).emit('get:message', data)
     });
   });
 

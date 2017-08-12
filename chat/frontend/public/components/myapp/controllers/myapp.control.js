@@ -13,6 +13,10 @@ myapp
       $scope.init = function() {
         socket.init($localStorage.username);
 
+        socket.on('get:message', $localStorage.username, function(data) {
+          $scope.messages.push(data);
+        });
+
         var data = {};
         if ($scope.send_to) {
           data = { username: $scope.send_to }
@@ -50,8 +54,12 @@ myapp
         if ($scope.text) {
           data.text = $scope.text;
 
-          Message.save({}, data).$promise.then(function(data) {
-            $scope.messages.push(data);
+          Message.save({}, data).$promise.then(function(message) {
+            $scope.messages.push(message);
+
+            if (message.send_to !== $localStorage.username) {
+              socket.emit('send:message', message, $localStorage.username);
+            }
 
           }, function(error){
             $scope.errors = error;
@@ -69,6 +77,9 @@ myapp
             }).then(
               function (resp) {
                 $scope.messages.push(resp.data);
+
+                if (resp.data.send_to !== $localStorage.username)
+                  socket.emit('send:message', resp.data, $localStorage.username);
               },
               function (resp) {
                 $scope.errors = resp.data;
