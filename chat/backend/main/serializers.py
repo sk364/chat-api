@@ -32,10 +32,10 @@ class MessageSerializer(serializers.ModelSerializer):
 			return is_img
 
 	def get_is_received(self, obj):
-		_send_by = obj.send_by
+		_send_by = obj.send_by.username
 		auth_username = self.context['request'].user.username
 
-		if _send_by == auth_username:
+		if _send_by != auth_username:
 			return True
 
 		return False
