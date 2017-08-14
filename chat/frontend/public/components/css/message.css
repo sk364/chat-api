@@ -19,11 +19,12 @@
   height: 71vh;
 }
 .message .sent {
-  margin-left: 53%;
+  text-align: right;
+  margin-right: 2%;
 }
 .message .received {
-  margin-right: 50%;
-  margin-left: 3%;
+  text-align: left;
+  margin-left: 2%;
 }
 .message .message-img {
   width: 90%;
@@ -45,4 +46,11 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+.send-to-heading {
+  display: inline-block;
+}
+.create-new-msg {
+  display: inline-block;
+  float: right;
 }
