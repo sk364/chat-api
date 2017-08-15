@@ -18,6 +18,9 @@
   margin-bottom: 2%;
   height: 71vh;
 }
+.message {
+  margin-bottom: 2%;
+}
 .message .sent {
   text-align: right;
   margin-right: 2%;
