@@ -47,10 +47,19 @@ class MessageSerializer(serializers.ModelSerializer):
 
 		return created_at_in_ist.strftime('%B %d %H:%M:%S')
 
+	def get_is_read(self, obj):
+		read = obj.read
+		auth_user_id = self.context['request'].user.id
+
+		if auth_user_id in read.split(','):
+			return True
+
+		return False
 
 	ufile_name = serializers.SerializerMethodField(read_only=True)
 	is_img = serializers.SerializerMethodField(read_only=True)
 	is_received = serializers.SerializerMethodField(read_only=True)
+	is_read = serializers.SerializerMethodField(read_only=True)
 	send_by = serializers.CharField(required=True, source='send_by.username')
 	send_to = serializers.CharField(required=True, source='send_to.username')
 	created_at = serializers.SerializerMethodField(read_only=True)
@@ -80,7 +89,8 @@ class MessageSerializer(serializers.ModelSerializer):
 			send_by = _send_by,
 			send_to = _send_to,
 			text = _text,
-			ufile = _ufile
+			ufile = _ufile,
+			read = str(_send_by.id)
 		)
 
 		message.save()
@@ -88,7 +98,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Message
-		fields = ('send_by', 'send_to', 'text', 'ufile', 'created_at', 'ufile_name', 'is_img', 'is_received', )
+		fields = ('send_by', 'send_to', 'text', 'ufile', 'created_at', 'ufile_name', 'is_img', 'is_received', 'is_read', )
 		read_only_fields = ('created_at', 'ufile_name', )
 
 

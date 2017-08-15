@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.contrib.auth.models import User
 
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView
@@ -34,11 +35,41 @@ class MessageAPIView(ListCreateAPIView):
             ).order_by('created_at')
 
         else:
-            return Message.objects.filter(Q(send_by=auth_user) | Q(send_to=auth_user)).order_by('created_at')
+            return None
 
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+
+class UpdateReadStatusAPIView(APIView):
+    """An API View to update message read status"""
+
+    def put(self, request):
+        timestamp = request.data.get('timestamp', '')
+        username = request.data.get('username', None)
+        resp = {'success': False}
+
+        if not timestamp:
+            resp['message'] = 'timestamp not provided.'
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            resp['message'] = 'User with username {} doesn\'t exist.'.format(username)
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        if user and timestamp:
+            messages_qs = Message.objects.filter(send_by=user, send_to=request.user, created_at__lte=timestamp)
+            for message in messages_qs:
+                if not message.read:
+                    message.read += ',' + str(request.user.id)
+                    message.save()
+
+            resp['success'] = True
+
+        return Response(resp)
 
 
 class UserAPIView(APIView):
@@ -55,12 +86,10 @@ class UserAPIView(APIView):
 class ConversationsAPIView(APIView):
     """An API View to get all conversations"""
 
-    permission_classes = (IsAuthenticated, )
-    authentication_classes = (JSONWebTokenAuthentication, )
-
     def is_message_in_list(self, message_list, message):
         for msg in message_list:
-            if msg.send_by == message.send_by and msg.send_to == message.send_to:
+            if (msg.send_by == message.send_by and msg.send_to == message.send_to) or \
+               (msg.send_by == message.send_to and msg.send_to == message.send_by):
                 return True
 
         return False

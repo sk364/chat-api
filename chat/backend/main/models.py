@@ -18,4 +18,5 @@ class Message(models.Model):
 	send_to = models.ForeignKey(User, related_name='send_to', on_delete=models.CASCADE)
 	text = models.CharField(max_length=1024, blank=True, null=True, default='')
 	ufile = models.FileField(upload_to=get_file_path, blank=True, null=True, default='')
+	read = models.CharField(max_length=10, null=True, blank=True, default='')
 	created_at = models.DateTimeField(auto_now_add=True)
