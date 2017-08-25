@@ -47,9 +47,11 @@ module.exports = function (socket) {
           userSocketIds = usersData[send_to];
 
     data.is_received = true;
-    userSocketIds.map(function(userSocketId, idx) {
-      socket.to(userSocketId).emit('get:message', data)
-    });
+    if (userSocketIds) {
+      userSocketIds.map(function(userSocketId, idx) {
+        socket.to(userSocketId).emit('get:message', data)
+      });
+    }
   });
 
   /*
