@@ -5,7 +5,6 @@
     <div class="row">
       <div class="col-md-12">
         {{errors}}
-        {{conversations}}
         <div id="message-create-form">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search for users..." ng-if='!send_to' ng-model="send_to" uib-typeahead="user.username for user in users | filter:$viewValue" typeahead-no-results="noResults" typeahead-on-select="onSelect($item, $model, $label)">

@@ -26,13 +26,24 @@
       socket.init($localStorage.username);
       socket.on('get:message', $localStorage.username, function(data) {
         if (data.send_by === $scope.send_to) {
+          var oldScrollHeight = $('#messages')[0].scrollHeight;
           $scope.messages.push(data);
+
+          setTimeout(function() {
+            var currentScrollTop = $('#messages')[0].scrollTop;
+            if (currentScrollTop + 464 === oldScrollHeight) {
+              $('#messages').scrollTop($('#messages')[0].scrollHeight);
+            }
+          }, 1);
         }
         $scope.updateConversations(data);
       });
 
       Message.query(data).$promise.then(function(messages) {
         $scope.messages = messages;
+        setTimeout(function() {
+          $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        }, 1);
       });
 
       User.query().$promise.then(function(users) {
@@ -102,6 +113,10 @@
         Message.save({}, data).$promise.then(function(message) {
           $scope.messages.push(message);
 
+          setTimeout(function() {
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+          }, 1);
+
           if (message.send_to !== $localStorage.username) {
             socket.emit('send:message', message, $localStorage.username);
           }
@@ -123,6 +138,10 @@
           }).then(
             function (resp) {
               $scope.messages.push(resp.data);
+
+              setTimeout(function() {
+                $('#messages').scrollTop($('#messages')[0].scrollHeight);
+              }, 1);
 
               if (resp.data.send_to !== $localStorage.username)
                 socket.emit('send:message', resp.data, $localStorage.username);
