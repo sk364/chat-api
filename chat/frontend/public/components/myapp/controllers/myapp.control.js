@@ -43,7 +43,7 @@
         $scope.messages = messages;
         setTimeout(function() {
           $('#messages').scrollTop($('#messages')[0].scrollHeight);
-        }, 1);
+        }, 56);
       });
 
       User.query().$promise.then(function(users) {

@@ -1,0 +1,12 @@
+<div class="message">
+  <div ng-class="msg.is_received ? 'received' : 'sent'">
+    <div class="created_at">
+      {{ msg.created_at }}
+    </div>
+    <div class="message-text" ng-if="!msg.ufile"> {{ msg.text }}</div>
+    <div ng-if="msg.ufile">
+      <a ng-href="{{ msg.ufile }}" target="_blank"><img ng-if='msg.is_img' ng-src='{{ msg.ufile }}' class='message-img'></a>
+      <a ng-if='!msg.is_img' ng-href='{{ msg.ufile }}' class='message-name' target="_blank">{{ msg.ufile_name }}</a>
+    </div>
+  </div>
+</div>

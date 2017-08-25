@@ -24,18 +24,7 @@
           </div>
 
           <div id="messages" ng-if='send_to'>
-            <div ng-repeat="message in messages" ng-class="'message'">
-              <div ng-class="message.is_received ? 'received' : 'sent'">
-                <div class="created_at">
-                  {{ message.created_at }}
-                </div>
-                <div class="message-text" ng-if="!message.ufile"> {{ message.text }}</div>
-                <div ng-if="message.ufile">
-                  <a ng-href="{{ message.ufile }}" target="_blank"><img ng-if='message.is_img' ng-src='{{ message.ufile }}' class='message-img'></a>
-                  <a ng-if='!message.is_img' ng-href='{{ message.ufile }}' class='message-name' target="_blank">{{ message.ufile_name }}</a>
-                </div>
-              </div>
-            </div>
+            <message-item ng-repeat="msg in messages"></message>
           </div>
 
           <div class="form-group">
