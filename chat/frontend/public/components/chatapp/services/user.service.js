@@ -1,6 +1,7 @@
-chatapp.factory('User', function($resource) {
+chatapp.factory('User', ['$resource', 'config', function($resource, config) {
+    var usersUrl = config.apiUrl + 'api/users/';
     return $resource(
-        'http://localhost:8000/api/users/',
+        usersUrl,
         {},
         {
             'query': {
@@ -15,4 +16,4 @@ chatapp.factory('User', function($resource) {
             stripTrailingSlashes: false
         }
     );
-});
+}]);

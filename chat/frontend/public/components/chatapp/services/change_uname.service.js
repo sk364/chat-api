@@ -1,6 +1,7 @@
-chatapp.factory('ChangeUsername', function($resource) {
+chatapp.factory('ChangeUsername', ['$resource', 'config', function($resource, config) {
+	var changeUnameUrl = config.apiUrl + 'api/auth/change_username/';
 	return $resource(
-		'http://localhost:8000/api/auth/change_username/',
+		changeUnameUrl,
 		{},
 		{
 			'update' : {
@@ -15,4 +16,4 @@ chatapp.factory('ChangeUsername', function($resource) {
             stripTrailingSlashes: false
         }
 	);
-});
+}]);

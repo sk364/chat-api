@@ -1,6 +1,7 @@
-chatapp.factory('Login', function($resource) {
+chatapp.factory('Login', ['$resource', 'config', function($resource, config) {
+    var loginUrl = config.apiUrl + 'api/login/';
     return $resource(
-        'http://localhost:8000/api/login/',
+        loginUrl,
         {},
         {
             'query': {
@@ -15,11 +16,12 @@ chatapp.factory('Login', function($resource) {
             stripTrailingSlashes: false
         }
     );
-});
+}]);
 
-chatapp.factory('GLogin', function($resource) {
+chatapp.factory('GLogin', ['$resource', 'config', function($resource, config) {
+    var gLoginUrl = config.apiUrl + 'api/glogin/';
     return $resource(
-        'http://localhost:8000/api/glogin/',
+        gLoginUrl,
         {},
         {
             'save': {
@@ -34,4 +36,4 @@ chatapp.factory('GLogin', function($resource) {
             stripTrailingSlashes: false
         }
     );
-});
+}]);

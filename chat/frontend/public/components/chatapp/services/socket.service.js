@@ -1,7 +1,7 @@
 'use strict';
 
-chatapp.factory('socket', function ($rootScope) {
-  var server = 'http://localhost:8081/';
+chatapp.factory('socket', ['$rootScope', 'config', function ($rootScope, config) {
+  var server = config.socketServerUrl;
   return {
     on: function (eventName, username, callback) {
       var socket = io.connect(server, {query: {username: username}});
@@ -32,4 +32,4 @@ chatapp.factory('socket', function ($rootScope) {
       });
     }
   };
-});
+}]);

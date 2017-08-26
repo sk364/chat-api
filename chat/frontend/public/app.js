@@ -39,3 +39,8 @@ chatapp.config(['$qProvider', '$httpProvider', '$localStorageProvider', 'jwtInte
 
   $httpProvider.interceptors.push('jwtInterceptor');
 }]);
+
+chatapp.constant('config', {
+  apiUrl: 'http://localhost:8000/',
+  socketServerUrl: 'http://localhost:8081/'
+});

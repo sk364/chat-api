@@ -1,6 +1,7 @@
-chatapp.factory('Message', function($resource) {
+chatapp.factory('Message', ['$resource', 'config', function($resource, config) {
+    var messagesUrl = config.apiUrl + 'api/messages/:username/';
 	return $resource(
-		'http://localhost:8000/api/messages/:username/',
+		messagesUrl,
 		{},
 		{
 			'query': {
@@ -43,11 +44,12 @@ chatapp.factory('Message', function($resource) {
 			stripTrailingSlashes: false
 		}
     )
-});
+}]);
 
-chatapp.factory('Conversation', function($resource) {
+chatapp.factory('Conversation', ['$resource', 'config', function($resource, config) {
+    var conversationsUrl = config.apiUrl + 'api/conversations/';
     return $resource(
-        'http://localhost:8000/api/conversations/',
+        conversationsUrl,
         {},
         {
             'query': {
@@ -62,11 +64,12 @@ chatapp.factory('Conversation', function($resource) {
             stripTrailingSlashes: false
         }
     )
-});
+}]);
 
-chatapp.factory('UpdateReadStatus', function($resource) {
+chatapp.factory('UpdateReadStatus', ['$resource', 'config', function($resource, config) {
+    var updateReadStatusUrl = config.apiUrl + 'api/update_read_status/';
     return $resource(
-        'http://localhost:8000/api/update_read_status/',
+        updateReadStatusUrl,
         {},
         {
             'update': {
@@ -81,4 +84,4 @@ chatapp.factory('UpdateReadStatus', function($resource) {
             stripTrailingSlashes: false
         }
     )
-});
+}]);

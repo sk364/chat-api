@@ -3,9 +3,9 @@
 
   chatapp.controller('MessageController', MessageController);
   MessageController.$inject = ["$scope", "$window", "$stateParams", "$localStorage", "Message", "Upload", "User",
-                               "Conversation", "UpdateReadStatus", "socket"];
+                               "Conversation", "UpdateReadStatus", "socket", "config"];
 
-  function MessageController($scope, $window, $stateParams, $localStorage, Message, Upload, User, Conversation, UpdateReadStatus, socket) {
+  function MessageController($scope, $window, $stateParams, $localStorage, Message, Upload, User, Conversation, UpdateReadStatus, socket, config) {
 
     if (!('token' in $localStorage)) {
       $window.location.href = '/#/login';
@@ -139,7 +139,7 @@
       else if (ufiles.length) {
         for (var i=0; i < ufiles.length; i++) {
           Upload.upload({
-            url: 'http://localhost:8000/api/messages/',
+            url: config.apiUrl + 'api/messages/',
             data: {
               ufile: ufiles[i],
               send_by : data['send_by'],

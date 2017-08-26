@@ -1,6 +1,7 @@
-chatapp.factory('ChangePwd', function($resource) {
+chatapp.factory('ChangePwd', ['$resource', 'config', function($resource, config) {
+	var changePwdUrl = config.apiUrl + 'api/change_password/';
 	return $resource(
-		'http://localhost:8000/api/change_password/',
+		changePwdUrl,
 		{},
 		{
 			'update' : {
@@ -15,4 +16,4 @@ chatapp.factory('ChangePwd', function($resource) {
             stripTrailingSlashes: false
         }
 	);
-});
+}]);
