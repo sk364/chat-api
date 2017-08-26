@@ -1,6 +1,6 @@
 'use strict';
 
-var myapp = angular.module('myapp',
+var chatapp = angular.module('chatapp',
 [
   'appRoutes',
   'ngStorage',
@@ -16,27 +16,26 @@ var myapp = angular.module('myapp',
   });
 });
 
-myapp
-  .config(['$qProvider', '$httpProvider', '$localStorageProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider',
-    function ($qProvider, $httpProvider, $localStorageProvider,
-      jwtInterceptorProvider, jwtOptionsProvider) {
-        $qProvider.errorOnUnhandledRejections(false);
-        jwtOptionsProvider.config({
-          authPrefix: 'JWT ',
-          whiteListedDomains: ['localhost'],
-          tokenGetter: ['options', function(options) {
-            // Skip authentication for any requests ending in .html
-            if (options && options.url.substr(options.url.length - 5) == '.html') {
-              return null;
-            }
+chatapp.config(['$qProvider', '$httpProvider', '$localStorageProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider',
+  function ($qProvider, $httpProvider, $localStorageProvider,
+    jwtInterceptorProvider, jwtOptionsProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+      jwtOptionsProvider.config({
+        authPrefix: 'JWT ',
+        whiteListedDomains: ['localhost'],
+        tokenGetter: ['options', function(options) {
+          // Skip authentication for any requests ending in .html
+          if (options && options.url.substr(options.url.length - 5) == '.html') {
+            return null;
+          }
 
-            var token = localStorage.getItem('ngStorage-token');
-	        		
-            if (token)
-              token = token.substring(1, token.length-1);
-              return token;
-          }]
-        });
+          var token = localStorage.getItem('ngStorage-token');
+        		
+          if (token)
+            token = token.substring(1, token.length-1);
+            return token;
+        }]
+      });
 
-    $httpProvider.interceptors.push('jwtInterceptor');
+  $httpProvider.interceptors.push('jwtInterceptor');
 }]);

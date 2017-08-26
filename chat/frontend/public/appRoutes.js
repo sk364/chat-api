@@ -7,16 +7,9 @@ angular
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
-        .state('settings', {
-            url: '/settings',
-            templateUrl: 'public/components/myapp/templates/settings.html',
-            controller: 'SettingsController'
-        });
-
-    $stateProvider
         .state('login', {
             url: '/login',
-            templateUrl: 'public/components/myapp/templates/login.html',
+            templateUrl: 'public/components/chatapp/templates/login.html',
             controller: 'LoginController'
         });
 
@@ -29,7 +22,7 @@ angular
     $stateProvider
     	.state('message-list', {
 	        url: '/{username}',
-	        templateUrl: 'public/components/myapp/templates/message-list.html',
+	        templateUrl: 'public/components/chatapp/templates/message-list.html',
 	        controller: 'MessageController'
 	    });
 }]);

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  myapp.controller('MessageController', MessageController);
+  chatapp.controller('MessageController', MessageController);
   MessageController.$inject = ["$scope", "$window", "$stateParams", "$localStorage", "Message", "Upload", "User",
                                "Conversation", "UpdateReadStatus", "socket"];
 
@@ -16,6 +16,7 @@
     $scope.users = [];
     $scope.active_users = [];
     $scope.conversations = [];
+    $scope.online_users = [];
 
     $scope.init = function() {
       var data = {};
@@ -37,6 +38,15 @@
           }, 1);
         }
         $scope.updateConversations(data);
+      });
+
+      socket.on('update:users', $localStorage.username, function(data) {
+        console.log(data);
+        if (data) {
+          var online_users = Object.keys(data);
+          online_users.splice($localStorage.username, 1);
+          $scope.online_users = online_users;
+        }
       });
 
       Message.query(data).$promise.then(function(messages) {

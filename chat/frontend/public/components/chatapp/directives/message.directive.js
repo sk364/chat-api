@@ -1,8 +1,8 @@
-myapp.directive('messageItem', MessageItem);
+chatapp.directive('messageItem', MessageItem);
 
 function MessageItem() {
     var ddo = {
-        templateUrl: 'public/components/myapp/templates/message-item.html',
+        templateUrl: 'public/components/chatapp/templates/message-item.html',
         restrict: 'E'
     }
 

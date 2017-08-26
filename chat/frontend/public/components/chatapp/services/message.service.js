@@ -1,4 +1,4 @@
-myapp.factory('Message', function($resource) {
+chatapp.factory('Message', function($resource) {
 	return $resource(
 		'http://localhost:8000/api/messages/:username/',
 		{},
@@ -45,7 +45,7 @@ myapp.factory('Message', function($resource) {
     )
 });
 
-myapp.factory('Conversation', function($resource) {
+chatapp.factory('Conversation', function($resource) {
     return $resource(
         'http://localhost:8000/api/conversations/',
         {},
@@ -64,7 +64,7 @@ myapp.factory('Conversation', function($resource) {
     )
 });
 
-myapp.factory('UpdateReadStatus', function($resource) {
+chatapp.factory('UpdateReadStatus', function($resource) {
     return $resource(
         'http://localhost:8000/api/update_read_status/',
         {},

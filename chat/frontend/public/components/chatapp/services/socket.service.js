@@ -1,11 +1,6 @@
 'use strict';
 
-/* Services */
-
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-myapp.factory('socket', function ($rootScope) {
+chatapp.factory('socket', function ($rootScope) {
   var server = 'http://localhost:8081/';
   return {
     on: function (eventName, username, callback) {

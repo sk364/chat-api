@@ -1,8 +1,11 @@
-myapp
-    .controller('LogoutController', ["$scope", "$window", "$localStorage",
-    	function($scope, $window, $localStorage) {
-	        $localStorage.$reset();
-	        $window.location.href = '/#/login'
-		}
-	]
-);
+(function() {
+    'use strict';
+
+    chatapp.controller('LogoutController', LogoutController);
+    LogoutController.$inject = ["$scope", "$window", "$localStorage"];
+
+    function LogoutController($scope, $window, $localStorage) {
+        $localStorage.$reset();
+        $window.location.href = '/#/login';
+    }
+})();

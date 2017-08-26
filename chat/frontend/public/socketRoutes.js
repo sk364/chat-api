@@ -38,7 +38,7 @@ const removeUserSocket = function(username, socket_id) {
 
 module.exports = function (socket) {
   const username = socket.request._query.username;
-  socket.broadcast.emit('updateUserList', addUser(username, socket.id));
+  socket.broadcast.emit('update:users', addUser(username, socket.id));
 
   // TODO: test this.
   socket.on('send:message', function (data) {
@@ -83,6 +83,6 @@ module.exports = function (socket) {
 
     clearTimeout(timeoutId);
     removeUserSocket(username, socket.id);
-    socket.broadcast.emit('updateUserList', getUsersData());
+    socket.broadcast.emit('update:users', getUsersData());
   });
 };
