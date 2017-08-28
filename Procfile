@@ -1,1 +1,1 @@
-web: gunicorn charcha.wsgi
+web: gunicorn chat.wsgi
