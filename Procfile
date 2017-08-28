@@ -1,1 +1,1 @@
-web: gunicorn chat.wsgi
+web: cd chat/backend && gunicorn chat.wsgi
