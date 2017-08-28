@@ -120,3 +120,5 @@ package-lock.json
 
 # user data
 usersData.json
+
+**/static/**
