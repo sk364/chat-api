@@ -93,7 +93,7 @@ class LoginView(APIView):
 
                 else:
                     raise crypt.AppIdentityError("Unverified Email.")
-            except crypt.AppIdentityError, e:
+            except crypt.AppIdentityError as e:
                 return Response({
                     "errors" : str(e)
                 }, status=status.HTTP_400_BAD_REQUEST)
