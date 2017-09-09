@@ -29,11 +29,10 @@ chatapp.config(['$qProvider', '$httpProvider', '$localStorageProvider', 'jwtInte
             return null;
           }
 
-          var token = localStorage.getItem('ngStorage-token');
-        		
-          if (token)
-            token = token.substring(1, token.length-1);
+          var token = $localStorageProvider.get('token');
+          if (token) {
             return token;
+          }
         }]
       });
 

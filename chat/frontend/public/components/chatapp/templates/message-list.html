@@ -48,7 +48,8 @@
 </div>
 
 <script>
-	$(document).ready(function() {
-		angular.element('#message-list').scope().init();
-	});
+  $(document).ready(function() {
+    $('nav').attr('hidden', false);
+    angular.element('#message-list').scope().init();
+  });
 </script>

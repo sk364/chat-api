@@ -5,6 +5,12 @@
   LoginController.$inject = ["$scope", "$state", "$localStorage", "$window", "$stateParams", "Login", "GLogin", "socket"];
 
   function LoginController($scope, $state, $localStorage, $window, $stateParams, Login, GLogin, socket) {
+    if ($localStorage.token) {
+      $state.transitionTo('message-list', $stateParams, {
+        reload: true, inherit: false, notify: true
+      });
+    }
+
     $scope.username = '';
     $scope.password = '';
     $scope.errors = '';
@@ -21,10 +27,7 @@
         if(data.token) {
           $localStorage.token = data.token;
           $localStorage.username = $scope.username;
-
-          $state.transitionTo('message-list', $stateParams, {
-            reload: true, inherit: false, notify: true
-          });
+          $window.location.reload();
         }
       }, function(error) {
         if ('non_field_errors' in error.data) {
@@ -41,10 +44,7 @@
         if (data.token) {
           $localStorage.token = data.token;
           $localStorage.username = data.username;
-
-          $state.transitionTo('message-list', $stateParams, {
-            reload: true, inherit: false, notify: true
-          });
+          $window.location.reload();
         }
       }, function(error) {
         var err_resp = error.data.errors;
