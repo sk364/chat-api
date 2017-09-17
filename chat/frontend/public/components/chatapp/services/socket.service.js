@@ -3,8 +3,7 @@
 chatapp.factory('socket', ['$rootScope', 'config', function ($rootScope, config) {
   var server = config.socketServerUrl;
   return {
-    on: function (eventName, username, callback) {
-      var socket = io.connect(server, {query: {username: username}});
+    on: function (socket, eventName, username, callback) {
       socket.on(eventName, function () {  
         var args = arguments;
         $rootScope.$apply(function () {
@@ -12,8 +11,7 @@ chatapp.factory('socket', ['$rootScope', 'config', function ($rootScope, config)
         });
       });
     },
-    emit: function (eventName, data, username, callback) {
-      var socket = io.connect(server, {query: {username: username}});
+    emit: function (socket, eventName, data, username, callback) {
       socket.emit(eventName, data, function () {
         var args = arguments;
         $rootScope.$apply(function () {
@@ -30,6 +28,7 @@ chatapp.factory('socket', ['$rootScope', 'config', function ($rootScope, config)
           callback.apply(socket, args);
         }
       });
+      return socket;
     }
   };
 }]);

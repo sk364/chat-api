@@ -14,9 +14,8 @@
     $scope.send_to = $stateParams.username;
     $scope.text = '';
     $scope.users = [];
-    $scope.active_users = [];
     $scope.conversations = [];
-    $scope.online_users = [];
+    $scope.online_users = [$localStorage.username];
 
     $scope.init = function() {
       var data = {};
@@ -24,8 +23,8 @@
         data = { username: $scope.send_to }
       }
 
-      socket.init($localStorage.username);
-      socket.on('get:message', $localStorage.username, function(data) {
+      $scope.socket = socket.init($localStorage.username);
+      socket.on($scope.socket, 'get:message', $localStorage.username, function(data) {
         if (data.send_by === $scope.send_to) {
           var oldScrollHeight = $('#messages')[0].scrollHeight;
           $scope.messages.push(data);
@@ -40,21 +39,31 @@
         $scope.updateConversations(data);
       });
 
-      socket.on('update:users', $localStorage.username, function(data) {
+      socket.on($scope.socket, 'update:users', $localStorage.username, function(data) {
         console.log(data);
         if (data) {
           var online_users = Object.keys(data);
           online_users.splice($localStorage.username, 1);
           $scope.online_users = online_users;
+          $scope.online_users.push($localStorage.username);
         }
       });
 
-      Message.query(data).$promise.then(function(messages) {
-        $scope.messages = messages;
-        setTimeout(function() {
-          $('#messages').scrollTop($('#messages')[0].scrollHeight);
-        }, 56);
-      });
+      if ($scope.send_to) {
+        Message.query(data).$promise.then(function(messages) {
+          $scope.messages = messages;
+          setTimeout(function() {
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+          }, 56);
+        });
+
+        data = {'username': $scope.send_to, 'timestamp': new Date()};
+        UpdateReadStatus.update({}, data).$promise.then(function(data) {
+          if (data.success) {
+            // idk what to do here.
+          }
+        });
+      }
 
       User.query().$promise.then(function(users) {
         $scope.users = users;
@@ -63,13 +72,6 @@
       Conversation.query().$promise.then(function(conversations) {
         $scope.conversations = conversations;
       });
-
-      data = {'username': $scope.send_to, 'timestamp': new Date()};
-      UpdateReadStatus.update({}, data).$promise.then(function(data) {
-        if (data.success) {
-          // idk what to do here.
-        }
-      })
     }
 
     $scope.updateConversations = function(message) {
@@ -128,7 +130,7 @@
           }, 1);
 
           if (message.send_to !== $localStorage.username) {
-            socket.emit('send:message', message, $localStorage.username);
+            socket.emit($scope.socket, 'send:message', message, $localStorage.username);
           }
 
           $scope.updateConversations(message);
@@ -154,7 +156,7 @@
               }, 1);
 
               if (resp.data.send_to !== $localStorage.username)
-                socket.emit('send:message', resp.data, $localStorage.username);
+                socket.emit($scope.socket, 'send:message', resp.data, $localStorage.username);
 
               $scope.updateConversations(resp.data);
             },
