@@ -2,11 +2,11 @@
   'use strict';
 
   chatapp.controller('LogoutController', LogoutController);
-  LogoutController.$inject = ["$scope", "$window", "$localStorage"];
+  LogoutController.$inject = ["$rootScope", "$scope", "$window", "$localStorage"];
 
-  function LogoutController($scope, $window, $localStorage) {
+  function LogoutController($rootScope, $scope, $window, $localStorage) {
+    $rootScope.socket.disconnect();
     $localStorage.$reset();
-
     setTimeout(function() {
       $window.location.href = '/#/login';
     }, 20);

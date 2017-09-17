@@ -2,10 +2,10 @@
   'use strict';
 
   chatapp.controller('MessageController', MessageController);
-  MessageController.$inject = ["$scope", "$window", "$stateParams", "$localStorage", "Message", "Upload", "User",
-                               "Conversation", "UpdateReadStatus", "socket", "config"];
+  MessageController.$inject = ["$rootScope", "$scope", "$window", "$stateParams", "$localStorage", "Message",
+                               "Upload", "User", "Conversation", "UpdateReadStatus", "socket", "config"];
 
-  function MessageController($scope, $window, $stateParams, $localStorage, Message, Upload, User, Conversation, UpdateReadStatus, socket, config) {
+  function MessageController($rootScope, $scope, $window, $stateParams, $localStorage, Message, Upload, User, Conversation, UpdateReadStatus, socket, config) {
 
     if (!('token' in $localStorage)) {
       $window.location.href = '/#/login';
@@ -15,7 +15,7 @@
     $scope.text = '';
     $scope.users = [];
     $scope.conversations = [];
-    $scope.online_users = [$localStorage.username];
+    $scope.online_users = [];
 
     $scope.init = function() {
       var data = {};
@@ -23,8 +23,8 @@
         data = { username: $scope.send_to }
       }
 
-      $scope.socket = socket.init($localStorage.username);
-      socket.on($scope.socket, 'get:message', $localStorage.username, function(data) {
+      $rootScope.socket = socket.init($localStorage.username);
+      socket.on($rootScope.socket, 'get:message', $localStorage.username, function(data) {
         if (data.send_by === $scope.send_to) {
           var oldScrollHeight = $('#messages')[0].scrollHeight;
           $scope.messages.push(data);
@@ -39,13 +39,11 @@
         $scope.updateConversations(data);
       });
 
-      socket.on($scope.socket, 'update:users', $localStorage.username, function(data) {
+      socket.on($rootScope.socket, 'update:users', $localStorage.username, function(data) {
         console.log(data);
         if (data) {
           var online_users = Object.keys(data);
-          online_users.splice($localStorage.username, 1);
           $scope.online_users = online_users;
-          $scope.online_users.push($localStorage.username);
         }
       });
 
@@ -130,7 +128,7 @@
           }, 1);
 
           if (message.send_to !== $localStorage.username) {
-            socket.emit($scope.socket, 'send:message', message, $localStorage.username);
+            socket.emit($rootScope.socket, 'send:message', message, $localStorage.username);
           }
 
           $scope.updateConversations(message);
@@ -156,7 +154,7 @@
               }, 1);
 
               if (resp.data.send_to !== $localStorage.username)
-                socket.emit($scope.socket, 'send:message', resp.data, $localStorage.username);
+                socket.emit($rootScope.socket, 'send:message', resp.data, $localStorage.username);
 
               $scope.updateConversations(resp.data);
             },

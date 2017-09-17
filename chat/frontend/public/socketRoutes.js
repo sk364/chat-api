@@ -32,6 +32,9 @@ const removeUserSocket = function(username, socket_id) {
     if (idx >= 0) {
       usersData[username].splice(idx, 1);
     }
+    if (usersData[username].length === 0) {
+      delete usersData[username];
+    }
     setUsersData(usersData);
   }
 }
@@ -39,8 +42,8 @@ const removeUserSocket = function(username, socket_id) {
 module.exports = function (socket) {
   const username = socket.request._query.username;
   socket.broadcast.emit('update:users', addUser(username, socket.id));
+  socket.emit('update:users', getUsersData());
 
-  // TODO: test this.
   socket.on('send:message', function (data) {
     const usersData = getUsersData(),
           send_to = data.send_to,
