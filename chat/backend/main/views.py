@@ -48,6 +48,7 @@ class UpdateReadStatusAPIView(APIView):
     def put(self, request):
         timestamp = request.data.get('timestamp', '')
         username = request.data.get('username', None)
+        user_id = request.user.id
         resp = {'success': False}
 
         if not timestamp:
@@ -64,7 +65,7 @@ class UpdateReadStatusAPIView(APIView):
             messages_qs = Message.objects.filter(send_by=user, send_to=request.user, created_at__lte=timestamp)
             for message in messages_qs:
                 if not message.read:
-                    message.read += ',' + str(request.user.id)
+                    message.read += ',' + str(user_id)
                     message.save()
 
             resp['success'] = True
@@ -113,7 +114,9 @@ class ConversationsAPIView(APIView):
 
     def get(self, request):
         user = request.user
-        messages = Message.objects.filter(Q(send_by=user) | Q(send_to=user)).order_by('-created_at')
+        messages = Message.objects.filter(
+            Q(send_by=user) | Q(send_to=user)
+        ).order_by('-created_at').select_related('send_by', 'send_to')
 
         first_messages = []
         for message in messages:
