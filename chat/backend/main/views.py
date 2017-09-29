@@ -20,7 +20,7 @@ class MessageAPIView(ListCreateAPIView):
 
     def get_queryset(self):
         """
-        This method should return a queryset of all the messages of the authenticated user, or with another user
+        Returns custom queryset of messages between authenticated user and other user
         """
 
         auth_user = self.request.user
@@ -32,7 +32,7 @@ class MessageAPIView(ListCreateAPIView):
             return Message.objects.filter(
                 (Q(send_by=auth_user) & Q(send_to=user)) |
                 (Q(send_by=user) & Q(send_to=auth_user))
-            ).order_by('created_at')
+            ).order_by('created_at').select_related('send_by', 'send_to')
 
         else:
             return None
