@@ -15,13 +15,16 @@
     $scope.text = '';
     $scope.users = [];
     $scope.conversations = [];
-    $scope.online_users = [];
+    $scope.onlineUsers = [];
+    $scope.unreadMessages = [];
 
     $scope.init = function() {
       var data = {};
       if ($scope.send_to) {
         data = { username: $scope.send_to }
       }
+
+      $scope.updateUnreadMessages();
 
       $rootScope.socket = socket.init($localStorage.username);
       socket.on($rootScope.socket, 'get:message', $localStorage.username, function(data) {
@@ -35,6 +38,9 @@
               $('#messages').scrollTop($('#messages')[0].scrollHeight);
             }
           }, 1);
+        } else {
+          $scope.unreadMessages.push(data);
+          $('#conversations').text('Conversations ' + $scope.unreadMessages.length);
         }
         $scope.updateConversations(data);
       });
@@ -42,8 +48,9 @@
       socket.on($rootScope.socket, 'update:users', $localStorage.username, function(data) {
         console.log(data);
         if (data) {
-          var online_users = Object.keys(data);
-          $scope.online_users = online_users;
+          var onlineUsers = Object.keys(data);
+          $scope.onlineUsers = onlineUsers;
+          $('#onlineUsers').text('Online Users ' + onlineUsers.length);
         }
       });
 
@@ -69,7 +76,23 @@
 
       Conversation.query().$promise.then(function(conversations) {
         $scope.conversations = conversations;
+        console.log(conversations);
       });
+    }
+
+    $scope.updateUnreadMessages = function() {
+      if ($scope.send_to) {
+        $scope.unreadMessages = $scope.unreadMessages.filter(function(msg) {
+          if (msg.send_by !== $scope.send_to) {
+            return true;
+          }
+          return false;
+        });
+
+        $('#conversations').text('Conversations ' + $scope.unreadMessages.length);
+      } else {
+        return;
+      }
     }
 
     $scope.updateConversations = function(message) {
@@ -96,6 +119,10 @@
         return new Date(msg1.created_at) - new Date(msg2.created_at);
       });
     }
+
+    $(document).on('click', '#conversations', function() {
+
+    });
 
     $scope.onSelect = function($item, $model, $value) {
       window.location.href = '/#/' + $value;
