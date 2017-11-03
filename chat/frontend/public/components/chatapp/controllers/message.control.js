@@ -17,6 +17,7 @@
     $scope.conversations = [];
     $scope.onlineUsers = [];
     $scope.unreadMessages = [];
+    $scope.showConversations = false;
 
     $scope.init = function() {
       var data = {};
@@ -40,7 +41,6 @@
           }, 1);
         } else {
           $scope.unreadMessages.push(data);
-          $('#conversations').text('Conversations ' + $scope.unreadMessages.length);
         }
         $scope.updateConversations(data);
       });
@@ -50,7 +50,6 @@
         if (data) {
           var onlineUsers = Object.keys(data);
           $scope.onlineUsers = onlineUsers;
-          $('#onlineUsers').text('Online Users ' + onlineUsers.length);
         }
       });
 
@@ -88,8 +87,6 @@
           }
           return false;
         });
-
-        $('#conversations').text('Conversations ' + $scope.unreadMessages.length);
       } else {
         return;
       }
@@ -120,9 +117,9 @@
       });
     }
 
-    $(document).on('click', '#conversations', function() {
-
-    });
+    $scope.selectConversation = function(user) {
+      window.location.href = '/#/' + user;
+    }
 
     $scope.onSelect = function($item, $model, $value) {
       window.location.href = '/#/' + $value;
