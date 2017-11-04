@@ -73,10 +73,24 @@
         $scope.users = users;
       });
 
-      Conversation.query().$promise.then(function(conversations) {
-        $scope.conversations = conversations;
-        console.log(conversations);
-      });
+      $scope.$on('dropdown:close', function(e, data) {
+        $scope.$apply(function() {
+          if ($scope.showConversations) {
+            $scope.showConversations = false;
+          }
+        })
+      })
+    }
+
+    $scope.showConversationsHandler = function(e) {
+      e.stopPropagation();
+      if (!$scope.showConversations) {
+        Conversation.query().$promise.then(function(conversations) {
+          $scope.conversations = conversations;
+          console.log(conversations);
+        });
+      }
+      $scope.showConversations = !$scope.showConversations;
     }
 
     $scope.updateUnreadMessages = function() {

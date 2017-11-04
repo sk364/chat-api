@@ -7,17 +7,17 @@
       <div class="">
         <ul class="nav navbar-nav navbar-left">
           <li><a class="navbar-brand" href="/#/">Brand</a></li>
-          <li><a class="navbar-brand" id="conversations" ng-click="showConversations=!showConversations">Conversations {{ unreadMessages.length || '' }}</a></li>
+          <li><a class="navbar-brand" id="conversations" ng-click="showConversationsHandler($event)">Conversations {{ unreadMessages.length || '' }}</a></li>
           <li><a class="navbar-brand" id="onlineUsers">Online Users {{ onlineUsers.length }}</a></li>
         </ul>
       </div>
 
-      <div id="conversationsContainer" ng-class="showConversations ? '': 'hide'">
+      <div id="conversationsContainer" ng-class="showConversations ? '': 'hide'" dropdown-listener>
         <div id="conversationsTitle">Conversations</div>
         <div id="conversationsBody">
           <div ng-repeat="msg in conversations" class="conversation-link" ng-click="selectConversation(msg.user)">
-            <div class="conversation-user">{{ msg.user }}</div>
             <div class="conversation-datetime">{{ msg.created_at }}</div>
+            <div class="conversation-user">{{ msg.user }}</div>
             <div class="conversation-text">{{ msg.text || msg.ufile_name }}</div>
             <hr>
           </div>
