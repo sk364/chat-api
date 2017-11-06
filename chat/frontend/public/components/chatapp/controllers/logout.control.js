@@ -5,7 +5,9 @@
   LogoutController.$inject = ["$rootScope", "$scope", "$window", "$localStorage"];
 
   function LogoutController($rootScope, $scope, $window, $localStorage) {
-    $rootScope.socket.disconnect();
+    if ($rootScope.socket) {
+      $rootScope.socket.disconnect();
+    }
     $localStorage.$reset();
     setTimeout(function() {
       $window.location.href = '/#/login';
