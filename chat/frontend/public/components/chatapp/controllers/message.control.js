@@ -18,6 +18,8 @@
     $scope.onlineUsers = [];
     $scope.unreadMessages = [];
     $scope.showConversations = false;
+    $scope.showOnlineUsers = false;
+    $scope.showSettings = false;
 
     $scope.init = function() {
       var data = {};
@@ -75,15 +77,33 @@
 
       $scope.$on('dropdown:close', function(e, data) {
         $scope.$apply(function() {
-          if ($scope.showConversations) {
+          if ($scope.showConversations || $scope.showOnlineUsers || $scope.showSettings) {
             $scope.showConversations = false;
+            $scope.showOnlineUsers = false;
+            $scope.showSettings = false;
           }
         })
       })
     }
 
+    $scope.showSettingsHandler = function(e) {
+      e.stopPropagation();
+      $scope.showConversations = false;
+      $scope.showOnlineUsers = false;
+      $scope.showSettings = !$scope.showSettings;
+    }
+
+    $scope.showOnlineUsersHandler = function(e) {
+      e.stopPropagation();
+      $scope.showSettings = false;
+      $scope.showConversations = false;
+      $scope.showOnlineUsers = !$scope.showOnlineUsers;
+    }
+
     $scope.showConversationsHandler = function(e) {
       e.stopPropagation();
+      $scope.showSettings = false;
+      $scope.showOnlineUsers = false;
       if (!$scope.showConversations) {
         Conversation.query().$promise.then(function(conversations) {
           $scope.conversations = conversations;
@@ -129,10 +149,6 @@
       $scope.conversations.sort(function(msg1, msg2) {
         return new Date(msg1.created_at) - new Date(msg2.created_at);
       });
-    }
-
-    $scope.selectConversation = function(user) {
-      window.location.href = '/#/' + user;
     }
 
     $scope.onSelect = function($item, $model, $value) {

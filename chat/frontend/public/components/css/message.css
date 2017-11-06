@@ -1,3 +1,26 @@
+.navbar {
+  min-height: 0px;
+}
+.navbar-inverse .navbar-nav>li>a {
+  height: 100%;
+  padding: 7px 13px;
+}
+.navbar-collapse.collapse {
+  display: block!important;
+}
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+.navbar-right {
+  float: right!important;
+}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+  font-size: 16px;
+  margin-left: -9px;
+}
+.new-message {
+  display: inline-block;
+}
 #text {
   margin-right: 5px;
   width: 90%;
@@ -17,6 +40,10 @@
   overflow-wrap: break-word;
   margin-bottom: 2%;
   height: 71vh;
+}
+#settings img {
+  width: 20px;
+  height: 20px;
 }
 .message {
   margin-bottom: 2%;
@@ -57,20 +84,18 @@
   display: inline-block;
   float: right;
 }
-#conversations {
-  cursor: pointer;
-}
-#conversationsContainer {
+#dropdownContainer {
   background-color: #fff;
   border: 1px solid rgba(100, 100, 100, .4);
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-  overflow: scroll;
+  overflow-y: scroll;
   position: absolute;
-  top: 73px;
+  top: 110%;
+  left: 73%;
   width: 347px;
   z-index: 1;
 }
-#conversationsTitle {
+#containerTitle {
   font-weight: bold;
   padding: 8px;
   font-size: 13px;
@@ -79,20 +104,23 @@
   width: 100%;
   border-bottom: 1px solid #dddddd;
 }
-#conversationsBody {
+#containerBody {
   padding: 15px 0px 0px 0px !important;
   max-height: 243px;
 }
-.conversation-link {
-  cursor: pointer;
+.settings {
+  overflow-y: visible;
 }
-.conversation-link:hover {
+.container-link {
+  cursor: pointer;
+  margin: 0 10px 0 10px;
+}
+.container-link:hover {
   background-color: #CCCCCC;
 }
-.conversation-user {
+.container-user {
   font-size: 16px;
   font-weight: 500;
-
 }
 .conversation-datetime {
   font-size: 10px;
@@ -100,4 +128,42 @@
 }
 .conversation-text {
   font-size: 13px;
+}
+.divider {
+  height: 2px;
+  background-color: gray;
+  margin: 5px 0px;
+}
+.bubble {
+  background: #e02424;
+  position: absolute;
+  right: -2px;
+  top: 4px;
+  padding: 2px 6px;
+  color: #fff;
+  font: bold .6em Tahoma, Arial, Helvetica;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 7px;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #888;
+  position: absolute;
+  top: 45px;
+}
+.conversations-wrap .arrow-up {
+  right: 217px;
+}
+.online-users-wrap .arrow-up {
+  right: 93px;
+}
+.settings-wrap .arrow-up {
+  right: 9px;
+}
+.settings-wrap #dropdownContainer {
+  overflow-y: visible;
 }
